@@ -25,15 +25,16 @@ public class Main {
         List<Long> timeBlockMM = new ArrayList();
         List<Long> timeBlockMMParallelLine = new ArrayList();
         List<Long> timeBlockMMParallelColumn = new ArrayList();
-        int[] blocksCount = new int[]{ 1, 2, 5, 10, 20, 30, 50, 100, 200, 500, 2000 };
-        for (int size = 20; size <= 500; size += size >= 100 ? 100 : 20) {
 
+        for (int size = 20; size <= 500; size += size >= 100 ? 100 : 20) {
+            int[] A = new int[size * size];
+            int[] B = new int[size * size];
             System.out.println(size);
 
             sizes.add(String.valueOf(size));
 
-            int[] A = generateMatrix(size * size);
-            int[] B = generateMatrix(size * size);
+            A = generateMatrix(A);
+            B = generateMatrix(B);
 
             long startTime = System.currentTimeMillis();
             PointedMM.pointedMM(size, A, B);
@@ -64,6 +65,8 @@ public class Main {
             BlockMM.blockMMParallelColumns(size, 2, A, B, 5);
             endTime = System.currentTimeMillis();
             timeBlockMMParallelColumn.add(endTime - startTime);
+
+            System.gc();
         }
         for (int i = 0; i < sizes.size(); i++) {
             sizeWriter.write(sizes.get(i) + " ");
@@ -83,9 +86,8 @@ public class Main {
         timeBlockMMParallelColumnWriter.close();
     }
 
-    private static int[] generateMatrix(int size) {
-        int[] a = new int[size * size];
-        for (int i = 0; i < size * size; i++) {
+    private static int[] generateMatrix(int[] a) {
+        for (int i = 0; i < a.length; i++) {
             a[i] = RANDOM.nextInt(201) - 100;
         }
         return a;
