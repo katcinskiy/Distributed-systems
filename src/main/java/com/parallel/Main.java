@@ -26,7 +26,9 @@ public class Main {
         List<Long> timeBlockMMParallelLine = new ArrayList();
         List<Long> timeBlockMMParallelColumn = new ArrayList();
         int[] blocksCount = new int[]{ 1, 2, 5, 10, 20, 30, 50, 100, 200, 500, 2000 };
-        for (int size = 10; size <= 2000; size += size >= 500 ? 100 : 20) {
+        for (int size = 20; size <= 500; size += size >= 100 ? 100 : 20) {
+
+            System.out.println(size);
 
             sizes.add(String.valueOf(size));
 
@@ -64,14 +66,21 @@ public class Main {
             timeBlockMMParallelColumn.add(endTime - startTime);
         }
         for (int i = 0; i < sizes.size(); i++) {
-            sizeWriter.write(sizes.get(i));
-            timePointedMMWriter.write(String.valueOf(timePointedMM.get(i)));
-            timePointedMMParallelLineWriter.write(String.valueOf(timePointedMMParallelLine.get(i)));
-            timePointedMMParallelLiColumnWriter.write(String.valueOf(timePointedMMParallelLiColumn.get(i)));
-            timeBlockMMWriter.write(String.valueOf(timeBlockMM.get(i)));
-            timeBlockMMParallelLineWriter.write(String.valueOf(timeBlockMMParallelLine.get(i)));
-            timeBlockMMParallelColumnWriter.write(String.valueOf(timeBlockMMParallelColumn.get(i)));
+            sizeWriter.write(sizes.get(i) + " ");
+            timePointedMMWriter.write(String.valueOf(timePointedMM.get(i)) + " ");
+            timePointedMMParallelLineWriter.write(String.valueOf(timePointedMMParallelLine.get(i)) + " ");
+            timePointedMMParallelLiColumnWriter.write(String.valueOf(timePointedMMParallelLiColumn.get(i)) + " ");
+            timeBlockMMWriter.write(String.valueOf(timeBlockMM.get(i)) + " ");
+            timeBlockMMParallelLineWriter.write(String.valueOf(timeBlockMMParallelLine.get(i)) + " ");
+            timeBlockMMParallelColumnWriter.write(String.valueOf(timeBlockMMParallelColumn.get(i)) + " ");
         }
+        sizeWriter.close();
+        timePointedMMWriter.close();
+        timePointedMMParallelLineWriter.close();
+        timePointedMMParallelLiColumnWriter.close();
+        timeBlockMMWriter.close();
+        timeBlockMMParallelLineWriter.close();
+        timeBlockMMParallelColumnWriter.close();
     }
 
     private static int[] generateMatrix(int size) {
