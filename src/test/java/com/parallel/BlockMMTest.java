@@ -73,7 +73,7 @@ public class BlockMMTest {
         int[] B = new int[] { 7, 8, 9, 6, 5, 4, 3, 2, 1, 6, 8, 5, 1, 2, 4, 3 };
         int[] expected = new int[] { 44, 86, 115, 77, 53, 86, 116, 79, 32, 78, 107, 71, 24, 42, 55, 37 };
 
-        int[] actual = BlockMM.blockMMParallel(4, 2, A, B, 1);
+        int[] actual = BlockMM.blockMMParallelLines(4, 2, A, B, 1);
 
         assertEquals("Failed.", expected, actual);
     }
@@ -82,7 +82,20 @@ public class BlockMMTest {
     public void blockMMParallelTest2() throws InterruptedException {
         long startTime = System.currentTimeMillis();
 
-        int[] actual = BlockMM.blockMMParallel(n, 50, A_, B_, 4);
+        int[] actual = BlockMM.blockMMParallelLines(n, 50, A_, B_, 4);
+
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Parallel " + (endTime - startTime) + " milliseconds");
+
+        assertEquals("Failed.", expected_, actual);
+    }
+
+    @Test
+    public void blockMMParallelTest3() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+
+        int[] actual = BlockMM.blockMMParallelColumns(n, 50, A_, B_, 4);
 
         long endTime = System.currentTimeMillis();
 
