@@ -143,7 +143,6 @@ public class BlockMM {
         }
         int q = size / blockSize;
 
-
         int blocksPerThread = q / threadCount;
         for (int j = 0; j < q; j++) {
             ExecutorService es = Executors.newCachedThreadPool();
